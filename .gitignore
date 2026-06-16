@@ -9,3 +9,6 @@
 *.log
 _*.html
 _*.css
+
+# Local build output
+dist/
