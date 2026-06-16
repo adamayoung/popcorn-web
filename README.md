@@ -29,7 +29,24 @@ python3 -m http.server 8000
 
 ## Deploy
 
-Static hosting from the repo root (e.g. GitHub Pages, Cloudflare Pages, Netlify). Point the `popcorn.adam-young.co.uk` subdomain at the host.
+Deployed to **Cloudflare Pages** automatically on every push to `main` via
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml). The workflow
+copies the publishable files into `dist/` and uploads them with Wrangler.
+
+### One-time setup
+
+1. **Create the Pages project** (direct-upload, production branch `main`):
+   ```sh
+   wrangler pages project create popcorn-web --production-branch=main
+   ```
+2. **Add repo secrets** (Settings → Secrets and variables → Actions):
+   - `CLOUDFLARE_API_TOKEN` — token with the *Cloudflare Pages: Edit* permission
+   - `CLOUDFLARE_ACCOUNT_ID` — your Cloudflare account ID
+3. **Add the custom domain** `popcorn.adam-young.co.uk` to the Pages project
+   (Pages → popcorn-web → Custom domains).
+
+The project name is set in the workflow (`--project-name=popcorn-web`); change it
+there if you name the Pages project differently.
 
 ---
 
