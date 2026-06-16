@@ -20,6 +20,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <!-- Mark JS as available before paint so reveal elements start hidden
+       (and stay visible if scripting is off). -->
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <header class="site-header">
@@ -40,81 +43,81 @@
     <!-- Hero -->
     <section class="hero">
       <div class="wrap">
-        <span class="hero-badge">🎬 For iPhone · iPad · Mac · Apple Vision Pro</span>
-        <img class="hero-logo" src="assets/app-icon.png" alt="Popcorn app icon" width="104" height="104" />
-        <h1>Movies &amp; TV,<br />natively yours.</h1>
-        <p class="lead">
+        <span class="hero-badge" data-reveal data-reveal-delay="0">🎬 For iPhone · iPad · Mac · Apple Vision Pro</span>
+        <img class="hero-logo" src="assets/app-icon.png" alt="Popcorn app icon" width="104" height="104" data-reveal data-reveal-delay="80" />
+        <h1 data-reveal data-reveal-delay="160">Movies &amp; TV,<br />natively yours.</h1>
+        <p class="lead" data-reveal data-reveal-delay="240">
           Popcorn is a fast, beautifully native way to explore the world of film and
           television — trending titles, deep cast and crew, a watchlist that follows you
           across your devices, and a movie companion that runs entirely on your device.
         </p>
-        <div class="hero-cta">
+        <div class="hero-cta" data-reveal data-reveal-delay="320">
           <a class="btn btn-primary" href="#features">Explore the features</a>
           <a class="btn btn-ghost" href="https://adam-young.co.uk">More from Adam Young</a>
         </div>
-        <p class="hero-meta">Built with SwiftUI · Requires iOS 26, macOS 26 or visionOS 2</p>
+        <p class="hero-meta" data-reveal data-reveal-delay="400">Built with SwiftUI · Requires iOS 26, macOS 26 or visionOS 2</p>
       </div>
     </section>
 
     <!-- Features -->
     <section id="features">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
           <p class="eyebrow">What you can do</p>
           <h2>Everything to feed your film habit</h2>
           <p>One tidy app for discovering, researching and keeping track of what to watch next.</p>
         </div>
 
         <div class="features">
-          <article class="card">
+          <article class="card" data-reveal>
             <div class="icon">🔥</div>
             <h3>Explore what's trending</h3>
             <p>Browse trending movies, TV series and people, refreshed with curated, discovery-driven listings.</p>
           </article>
 
-          <article class="card">
+          <article class="card" data-reveal>
             <div class="icon">🔎</div>
             <h3>Search everything</h3>
             <p>Find any movie, series or person in seconds with fast, unified search across the whole catalogue.</p>
           </article>
 
-          <article class="card">
+          <article class="card" data-reveal>
             <div class="icon">🎭</div>
             <h3>Deep cast &amp; crew</h3>
             <p>Dive into full cast and crew for films, series, seasons and episodes — then follow the people behind them.</p>
           </article>
 
-          <article class="card">
+          <article class="card" data-reveal>
             <div class="icon">📺</div>
             <h3>Seasons &amp; episodes</h3>
             <p>Track TV series down to the season and episode, with details and the talent in every chapter.</p>
           </article>
 
-          <article class="card">
+          <article class="card" data-reveal>
             <div class="icon">📡</div>
             <h3>UK TV Listings</h3>
             <p>See what's on across UK television with a built‑in programme guide, so you always know what's showing next.</p>
           </article>
 
-          <article class="card">
+          <article class="card" data-reveal>
             <div class="icon">🍿</div>
             <h3>Your watchlist, everywhere</h3>
             <p>Save what you want to watch. Your watchlist syncs privately through your own iCloud across all your devices.</p>
           </article>
 
-          <article class="card">
+          <article class="card" data-reveal>
             <div class="icon">✨</div>
             <h3>On-device movie companion</h3>
             <p>Chat about a film or series with an intelligent companion powered by Apple Intelligence — running entirely on your device.</p>
           </article>
 
-          <article class="card">
+          <article class="card" data-reveal>
             <div class="icon">🎲</div>
             <h3>Play along</h3>
             <p>Take a break with built-in games like Plot Remix — quick, playful challenges generated on-device.</p>
           </article>
 
-          <article class="card">
+          <article class="card" data-reveal>
             <div class="icon">📱</div>
             <h3>Truly native</h3>
             <p>Designed in SwiftUI to feel right at home on iPhone, iPad, Mac and Apple Vision Pro.</p>
@@ -127,7 +130,7 @@
     <section id="privacy" class="band">
       <div class="wrap">
         <div class="inner">
-          <div>
+          <div data-reveal="left">
             <p class="eyebrow">Privacy first</p>
             <h2>What's yours stays yours</h2>
             <p>Popcorn is designed to be enjoyable without asking you to hand over your identity. There's no sign-up, and the personal touches happen on your device or in your own iCloud.</p>
@@ -141,7 +144,7 @@
               <a class="btn btn-ghost" href="privacy.html">Read the full privacy policy →</a>
             </p>
           </div>
-          <div class="band-art">
+          <div class="band-art" data-reveal="right">
             <img src="assets/app-icon.png" alt="Popcorn app icon" />
           </div>
         </div>
@@ -151,7 +154,7 @@
     <!-- CTA -->
     <section class="cta">
       <div class="wrap">
-        <div class="cta-box">
+        <div class="cta-box" data-reveal>
           <h2>Grab your popcorn</h2>
           <p>A personal project by Adam Young, crafted for people who love movies and TV as much as the apps they live in.</p>
           <a class="btn btn-primary" href="https://adam-young.co.uk">Visit adam-young.co.uk</a>
@@ -170,5 +173,40 @@
       </nav>
     </div>
   </footer>
+
+  <!-- Scroll-reveal: fade/slide elements in as they enter the viewport. -->
+  <script>
+    (function () {
+      var reveals = document.querySelectorAll('[data-reveal]');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      // No IntersectionObserver, or motion is turned off: just show everything.
+      if (!('IntersectionObserver' in window) || reduce.matches) {
+        reveals.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+
+      // Stagger feature cards by their column position for a wave effect.
+      document.querySelectorAll('.features [data-reveal]').forEach(function (el, i) {
+        el.style.transitionDelay = (i % 3) * 80 + 'ms';
+      });
+
+      // Honour explicit per-element delays (used for the hero cascade).
+      reveals.forEach(function (el) {
+        var d = el.getAttribute('data-reveal-delay');
+        if (d) el.style.transitionDelay = d + 'ms';
+      });
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+      reveals.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
 </body>
 </html>

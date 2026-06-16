@@ -426,6 +426,44 @@ h2 {
 }
 .callout p { margin: 0; color: var(--ink); }
 
+/* ---------- Scroll reveal ---------- */
+/* Elements with [data-reveal] start hidden and animate in when scrolled into
+   view (the .is-visible class is added by an IntersectionObserver). The hidden
+   state is only applied when JS is available (.js on <html>), so the page is
+   fully visible if scripts fail or are disabled. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.js [data-reveal="left"]  { transform: translateX(-48px); }
+.js [data-reveal="right"] { transform: translateX(48px); }
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Reveal every direct child of a container — handy for long content pages
+   where tagging each block individually would be tedious. */
+.js [data-reveal-children] > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.js [data-reveal-children] > .is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 860px) {
   .features { grid-template-columns: 1fr 1fr; }
@@ -446,4 +484,7 @@ h2 {
 
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto; transition: none !important; }
+  /* Never hide content from users who opt out of motion. */
+  .js [data-reveal],
+  .js [data-reveal-children] > * { opacity: 1 !important; transform: none !important; }
 }

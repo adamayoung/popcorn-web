@@ -12,6 +12,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <!-- Mark JS as available before paint so reveal elements start hidden
+       (and stay visible if scripting is off). -->
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <header class="site-header">
@@ -28,7 +31,7 @@
     </div>
   </header>
 
-  <main class="legal">
+  <main class="legal" data-reveal-children>
     <h1>Privacy Policy</h1>
     <p class="updated">Last updated: 16 June 2026</p>
 
@@ -131,5 +134,33 @@
       </nav>
     </div>
   </footer>
+
+  <!-- Scroll-reveal: fade content blocks in as they enter the viewport. -->
+  <script>
+    (function () {
+      var reveals = [].slice.call(document.querySelectorAll('[data-reveal]'));
+      document.querySelectorAll('[data-reveal-children]').forEach(function (parent) {
+        reveals = reveals.concat([].slice.call(parent.children));
+      });
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      // No IntersectionObserver, or motion is turned off: just show everything.
+      if (!('IntersectionObserver' in window) || reduce.matches) {
+        reveals.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+      reveals.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
 </body>
 </html>
